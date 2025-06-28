@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+
+<html lang="ro">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <title>VoluntApp</title>
+
+  <link rel="stylesheet" href=https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css>
+
+  <style>
+
+    .nav-link.active {
+
+      position: relative;
+
+    }
+
+ 
+
+    .nav-link.active::after {
+
+      content: "";
+
+      position: absolute;
+
+      bottom: -4px; /* mai jos față de cuvânt */
+
+      left: 0;
+
+      width: 100%;
+
+      height: 3px;
+
+      background-color: #ff443a; /* albastru Bootstrap */
+
+    }
+
+ 
+
+    .navbar-brand img {
+
+      margin-left: 2cm;
+
+    }
+
+ 
+
+    .navbar-nav {
+
+      margin-left: 2cm;
+
+    }
+
+ 
+
+    .btn-outline-danger {
+
+      border-radius: 20px;
+
+      padding: 6px 16px;
+
+    }
+
+  </style>
+
+</head>
+
+ 
+
+<body>
+
+ 
+
+  {% if current_user.is_authenticated %}
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-4">
+
+    <a class="navbar-brand me-4" href="{{ url_for('projects') }}">
+
+      <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo" height="40">
+
+    </a>
+
+    <div class="collapse navbar-collapse">
+
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+        <li class="nav-item">
+
+          <a class="nav-link {% if request.endpoint == 'projects' %}active{% endif %}" href="{{ url_for('projects') }}">Proiecte disponibile</a>
+
+        </li>
+
+ 
+
+        {% if current_user.email != 'admin@dspus.ro' %}
+
+        <li class="nav-item">
+
+          <a class="nav-link {% if request.endpoint == 'my_projects' %}active{% endif %}" href="{{ url_for('my_projects') }}">Proiectele mele</a>
+
+        </li>
+
+        {% endif %}
+
+ 
+
+        {% if current_user.email == 'admin@dspus.ro' %}
+
+        <li class="nav-item">
+
+          <a class="nav-link {% if request.endpoint == 'add_project' %}active{% endif %}" href="{{ url_for('add_project') }}">Adăugare proiect</a>
+
+        </li>
+
+        <li class="nav-item">
+
+          <a class="nav-link {% if request.endpoint == 'manage_volunteers' %}active{% endif %}" href="{{ url_for('manage_volunteers') }}">Gestionare voluntari</a>
+
+        </li>
+
+        {% endif %}
+
+      </ul>
+
+ 
+
+      <form action="{{ url_for('logout') }}" method="POST" class="d-flex">
+
+        <button class="btn btn-outline-danger" type="submit">Ieși din cont</button>
+
+      </form>
+
+    </div>
+
+  </nav>
+
+  {% endif %}
+
+
+ 
+
+  {% block content %}{% endblock %}
+
+ 
+
+  <script src=https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js></script>
+
+</body>
+
+</html>

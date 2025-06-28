@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+ 
+
+{% block content %}
+
+<div class="background" style="background-image: url('{{ url_for('static', filename='bg-register.jpg') }}'); background-size: cover; background-position: center; min-height: 100vh;">
+
+  <div class="container py-5">
+
+    <h3 class="text-center mb-4" style="color: #ff443a">Gestionare voluntari</h3>
+
+    <form method="POST" action="{{ url_for('send_email') }}">
+
+      <div class="row">
+
+        <!-- Form Email -->
+
+        <div class="col-md-6">
+
+          <div class="card p-3 shadow">
+
+            <div class="mb-3">
+
+              <label for="subject" class="form-label">Subiect</label>
+
+              <input type="text" class="form-control" name="subject" id="subject" required>
+
+            </div>
+
+            <div class="mb-3">
+
+              <label for="message" class="form-label">Mesaj</label>
+
+              <textarea class="form-control" name="message" id="message" rows="6" required></textarea>
+
+            </div>
+
+          </div>
+
+        </div>
+
+ 
+
+        <!-- Lista Voluntari -->
+
+        <div class="col-md-6">
+
+          <div class="card p-3 shadow">
+
+            <table class="table table-bordered">
+
+              <thead>
+
+                <tr>
+
+                  <th>Selectează</th>
+
+                  <th>Nume</th>
+
+                  <th>E-mail</th>
+
+                  <th>Proiect</th>
+
+                </tr>
+
+              </thead>
+
+              <tbody>
+
+                {% for user in users %}
+
+                <tr>
+
+                  <td><input type="checkbox" name="recipients" value="{{ user.email }}"></td>
+
+                  <td>{{ user.name }}</td>
+
+                  <td>{{ user.email }}</td>
+
+                  <td>
+
+                    {% set signup = user.signups.first() %}
+
+                    {% if signup %}
+
+                      {{ signup.project.title }}
+
+                    {% else %}
+
+                      <span class="text-muted">Neînscris</span>
+
+                    {% endif %}
+
+                  </td>
+
+                </tr>
+
+                {% endfor %}
+
+              </tbody>
+
+            </table>
+
+            <div class="text-end">
+
+              <button type="submit" class="btn btn-primary">Trimite mail</button>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+{% endblock %}

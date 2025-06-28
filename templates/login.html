@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Autentificare - VoluntApp DSPUS</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-image: url("{{ url_for('static', filename='voluntapp.jpg') }}?v=1");
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .form-container {
+      background-color: rgba(255, 255, 255, 0.95);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    .wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      height: 100vh;
+      padding-right: 5%;
+    }
+
+    .form-title {
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+
+    .form-control {
+      border-radius: 10px;
+    }
+
+    .btn-custom {
+      background-color: #fbe4a0;
+      color: black;
+      font-weight: 500;
+      border-radius: 10px;
+    }
+
+    .btn-custom:hover {
+      background-color: #fcd98c;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="form-container">
+      <h4 class="form-title text-center">Autentificare</h4>
+      <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+          {{ form.email.label(class="form-label") }}
+          {{ form.email(class="form-control", placeholder="exemplu@email.com") }}
+        </div>
+        <div class="mb-3">
+          {{ form.password.label(class="form-label") }}
+          {{ form.password(class="form-control", placeholder="Parolă") }}
+        </div>
+        <div class="d-grid">
+          {{ form.submit(class="btn btn-custom") }}
+        </div>
+      </form>
+      <p class="text-center mt-3">Nu ai cont? <a href="{{ url_for('register') }}">Creează unul</a></p>
+    </div>
+  </div>
+</body>
+</html>

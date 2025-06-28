@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+ 
+
+{% block content %}
+
+<div class="background" style="background-image: url('{{ url_for('static', filename='voluntapp.jpg') }}'); background-size: cover; background-position: center; min-height: 100vh;">
+
+  <div class="wrapper d-flex align-items-center justify-content-end min-vh-100 px-5">
+
+    <div class="form-container shadow-lg p-4 rounded bg-white" style="max-width: 400px; width: 100%;">
+
+      <h3 class="text-center mb-4">Înregistrare</h3>
+
+ 
+
+      <form method="POST" action="{{ url_for('register') }}">
+
+        {{ form.hidden_tag() }}
+
+ 
+
+        <div class="mb-3">
+
+          {{ form.name.label(class="form-label") }}
+
+          {{ form.name(class="form-control", placeholder="Nume") }}
+
+        </div>
+
+ 
+
+        <div class="mb-3">
+
+          {{ form.email.label(class="form-label") }}
+
+          {{ form.email(class="form-control", placeholder="Email") }}
+
+        </div>
+
+ 
+
+        <div class="mb-3">
+
+          {{ form.password.label(class="form-label") }}
+
+          {{ form.password(class="form-control", placeholder="Parolă") }}
+
+        </div>
+
+ 
+
+        <div class="mb-3">
+
+          {{ form.confirm_password.label(class="form-label") }}
+
+          {{ form.confirm_password(class="form-control", placeholder="Confirmă parola") }}
+
+        </div>
+
+ 
+
+        <div class="d-grid">
+
+          {{ form.submit(class="btn", style="background-color: #ff443a; color: white;") }}
+
+        </div>
+
+      </form>
+
+ 
+
+      <p class="text-center mt-3">Ai deja cont? <a href="{{ url_for('login') }}">Autentifică-te</a></p>
+
+    </div>
+
+  </div>
+
+</div>
+
+{% endblock %}
